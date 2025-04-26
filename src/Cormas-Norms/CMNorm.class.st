@@ -1,5 +1,5 @@
 Class {
-	#name : 'Norm',
+	#name : 'CMNorm',
 	#superclass : 'Object',
 	#instVars : [
 		'aim',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-Norm class >> if: aConditionBlock thenForbidTo: aReverseAimBlock otherwise: anOtherwiseBlock [
+CMNorm class >> if: aConditionBlock thenForbidTo: aReverseAimBlock otherwise: anOtherwiseBlock [
 
 	^ self
 		if: aConditionBlock
@@ -20,7 +20,7 @@ Norm class >> if: aConditionBlock thenForbidTo: aReverseAimBlock otherwise: anOt
 ]
 
 { #category : 'enumerating' }
-Norm class >> if: aConditionBlock thenMustDo: anAimBlock otherwise: anOtherwiseBlock [
+CMNorm class >> if: aConditionBlock thenMustDo: anAimBlock otherwise: anOtherwiseBlock [
 
 	^ self new
 		condition: aConditionBlock;
@@ -30,13 +30,13 @@ Norm class >> if: aConditionBlock thenMustDo: anAimBlock otherwise: anOtherwiseB
 ]
 
 { #category : 'accessing' }
-Norm >> aim: aBlock [
+CMNorm >> aim: aBlock [
 
 	aim := aBlock
 ]
 
 { #category : 'private' }
-Norm >> applyTo: anObject [
+CMNorm >> applyTo: anObject [
 
 	(condition value: anObject) ifTrue: [ 
 		(aim value: anObject) ifFalse: [ 
@@ -44,13 +44,13 @@ Norm >> applyTo: anObject [
 ]
 
 { #category : 'accessing' }
-Norm >> condition: aBlock [
+CMNorm >> condition: aBlock [
 
 	condition := aBlock
 ]
 
 { #category : 'accessing' }
-Norm >> otherwise: aBlock [
+CMNorm >> otherwise: aBlock [
 
 	otherwise := aBlock
 ]
