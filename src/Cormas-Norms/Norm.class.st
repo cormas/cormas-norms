@@ -10,6 +10,25 @@ Class {
 	#package : 'Cormas-Norms'
 }
 
+{ #category : 'as yet unclassified' }
+Norm class >> if: aConditionBlock thenForbidTo: aReverseAimBlock otherwise: anOtherwiseBlock [
+
+	^ self
+		if: aConditionBlock
+		thenMustDo: [ :anObject | (aReverseAimBlock value: anObject) not ]
+		otherwise: anOtherwiseBlock
+]
+
+{ #category : 'enumerating' }
+Norm class >> if: aConditionBlock thenMustDo: anAimBlock otherwise: anOtherwiseBlock [
+
+	^ self new
+		condition: aConditionBlock;
+		aim: anAimBlock;
+		otherwise: anOtherwiseBlock;
+		yourself
+]
+
 { #category : 'accessing' }
 Norm >> aim: aBlock [
 
