@@ -1,5 +1,5 @@
 Trait {
-	#name : 'TCMNorm',
+	#name : 'TCMNormsEntity',
 	#instVars : [
 		'norms'
 	],
@@ -8,19 +8,19 @@ Trait {
 }
 
 { #category : 'adding' }
-TCMNorm >> addNorm: aNorm [
+TCMNormsEntity >> addNorm: aNorm [
 
 	self norms add: aNorm
 ]
 
 { #category : 'as yet unclassified' }
-TCMNorm >> applyNorms [
+TCMNormsEntity >> applyNorms [
 
 	self norms do: [ :norm | norm applyTo: self ]
 ]
 
 { #category : 'accessing' }
-TCMNorm >> norms [
+TCMNormsEntity >> norms [
 
 	^ norms ifNil: [ norms := OrderedCollection new ]
 ]
