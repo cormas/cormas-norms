@@ -1,23 +1,35 @@
 Class {
 	#name : 'CMNormTest',
 	#superclass : 'TestCase',
+	#instVars : [
+		'norm'
+	],
 	#category : 'Cormas-Norms-Tests',
 	#package : 'Cormas-Norms-Tests'
 }
 
+{ #category : 'running' }
+CMNormTest >> tearDown [
+
+	norm deactivate.
+	super tearDown
+]
+
 { #category : 'tests' }
-CMNormTest >> testNumbers [
+CMNormTest >> testAgentForbidden [
 
-	| numbers blacklist norm |
-	numbers := (1 to: 20) asOrderedCollection.
-	blacklist := OrderedCollection new.
-
+	| mockAgent |
 	norm := CMNorm
-		if: [ :number | number < 10 ]
-		thenMustDo: [ :number | number isPrime ]
-		otherwise: [ :number | blacklist add: number ].
+		if: [ :agent | agent cannotEatForbiddenFruit ]
+		forbiddenMethods: { CMMockAgent >> #eat }
+		penalty: [ :agent | agent payFine: 20 ].
+
+	mockAgent := CMMockAgent new
+		balance: 100;
+		yourself.
+
+	norm activate.
+	mockAgent eat.
 	
-	numbers do: [ :each | norm applyTo: each ].
-	
-	self assertCollection: blacklist hasSameElements: { 1 . 4 . 6 . 8 . 9 }
+	self assert: mockAgent balance equals: 80
 ]

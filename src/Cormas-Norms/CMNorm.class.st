@@ -2,55 +2,80 @@ Class {
 	#name : 'CMNorm',
 	#superclass : 'Object',
 	#instVars : [
-		'aim',
-		'condition',
-		'otherwise'
+		'conditionBlock',
+		'penaltyBlock',
+		'instrumenter',
+		'methodsToInstrument'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
 }
 
 { #category : 'as yet unclassified' }
-CMNorm class >> if: aConditionBlock thenForbidTo: aReverseAimBlock otherwise: anOtherwiseBlock [
-
-	^ self
-		if: aConditionBlock
-		thenMustDo: [ :anObject | (aReverseAimBlock value: anObject) not ]
-		otherwise: anOtherwiseBlock
-]
-
-{ #category : 'enumerating' }
-CMNorm class >> if: aConditionBlock thenMustDo: anAimBlock otherwise: anOtherwiseBlock [
+CMNorm class >> if: aConditionBlock forbiddenMethods: aCompiledMethodsArray penalty: aPenaltyBlock [
 
 	^ self new
 		condition: aConditionBlock;
-		aim: anAimBlock;
-		otherwise: anOtherwiseBlock;
+		methodToInstrument: aCompiledMethodsArray;
+		penalty: aPenaltyBlock;
 		yourself
 ]
 
-{ #category : 'accessing' }
-CMNorm >> aim: aBlock [
+{ #category : 'as yet unclassified' }
+CMNorm class >> if: aConditionBlock thenForbidTo: aCompiledMethod otherwise: aPenaltyBlock [
 
-	aim := aBlock
+	^ self new
+		condition: aConditionBlock;
+		methodToInstrument: aCompiledMethod;
+		penalty: aPenaltyBlock;
+		yourself
 ]
 
 { #category : 'private' }
-CMNorm >> applyTo: anObject [
+CMNorm >> activate [
 
-	(condition value: anObject) ifTrue: [ 
-		(aim value: anObject) ifFalse: [ 
-			otherwise value: anObject ] ]
+	instrumenter instrumentMethods: methodsToInstrument
 ]
 
 { #category : 'accessing' }
-CMNorm >> condition: aBlock [
+CMNorm >> condition [
 
-	condition := aBlock
+	^ conditionBlock
 ]
 
 { #category : 'accessing' }
-CMNorm >> otherwise: aBlock [
+CMNorm >> condition: aFullBlockClosure [
 
-	otherwise := aBlock
+	conditionBlock := aFullBlockClosure
+]
+
+{ #category : 'private' }
+CMNorm >> deactivate [
+
+	instrumenter uninstrument
+]
+
+{ #category : 'initialization' }
+CMNorm >> initialize [
+
+	super initialize.
+	instrumenter := CMNormInstrumenter onNorm: self
+]
+
+{ #category : 'as yet unclassified' }
+CMNorm >> methodToInstrument: aCollection [
+
+	methodsToInstrument := aCollection
+]
+
+{ #category : 'as yet unclassified' }
+CMNorm >> penalty [
+
+	^ penaltyBlock
+]
+
+{ #category : 'as yet unclassified' }
+CMNorm >> penalty: aFullBlockClosure [
+
+	penaltyBlock := aFullBlockClosure
 ]
