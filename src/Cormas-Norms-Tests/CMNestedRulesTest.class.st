@@ -19,7 +19,7 @@ CMNestedRulesTest >> tearDown [
 ]
 
 { #category : 'tests' }
-CMNestedRulesTest >> testContradictoryRules [
+CMNestedRulesTest >> testNestedRules [
 
 	| person1 person2 person3 |
 	rule1 := CMPenaltyRule
