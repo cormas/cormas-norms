@@ -19,7 +19,7 @@ CMMpHandler class >> onNorm: aCormasNorm [
 { #category : 'evaluating' }
 CMMpHandler >> afterExecutionWithReceiver: receiver arguments: args returnValue: returnValue [
 
-	(norm condition value: receiver) ifTrue: [ norm penalty value: receiver ]
+	(norm conditionBlock value: receiver) ifTrue: [ norm actionBlock value: receiver ]
 ]
 
 { #category : 'evaluating' }

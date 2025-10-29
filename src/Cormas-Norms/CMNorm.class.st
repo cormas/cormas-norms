@@ -3,53 +3,39 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'conditionBlock',
-		'penaltyBlock',
 		'instrumenter',
-		'methodsToInstrument'
+		'methodsToInstrument',
+		'actionBlock'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
 }
 
-{ #category : 'as yet unclassified' }
-CMNorm class >> if: aConditionBlock forbiddenMethods: aCompiledMethodsArray penalty: aPenaltyBlock [
+{ #category : 'accessing' }
+CMNorm >> actionBlock [
 
-	^ self new
-		condition: aConditionBlock;
-		methodToInstrument: aCompiledMethodsArray;
-		penalty: aPenaltyBlock;
-		yourself
+	^ actionBlock
 ]
 
-{ #category : 'as yet unclassified' }
-CMNorm class >> if: aConditionBlock thenForbidTo: aCompiledMethod otherwise: aPenaltyBlock [
-
-	^ self new
-		condition: aConditionBlock;
-		methodToInstrument: aCompiledMethod;
-		penalty: aPenaltyBlock;
-		yourself
-]
-
-{ #category : 'private' }
+{ #category : 'api' }
 CMNorm >> activate [
 
 	instrumenter instrumentMethods: methodsToInstrument
 ]
 
 { #category : 'accessing' }
-CMNorm >> condition [
+CMNorm >> conditionBlock [
 
 	^ conditionBlock
 ]
 
 { #category : 'accessing' }
-CMNorm >> condition: aFullBlockClosure [
+CMNorm >> conditionBlock: aFullBlockClosure [
 
 	conditionBlock := aFullBlockClosure
 ]
 
-{ #category : 'private' }
+{ #category : 'api' }
 CMNorm >> deactivate [
 
 	instrumenter uninstrument
@@ -62,20 +48,8 @@ CMNorm >> initialize [
 	instrumenter := CMNormInstrumenter onNorm: self
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 CMNorm >> methodToInstrument: aCollection [
 
 	methodsToInstrument := aCollection
-]
-
-{ #category : 'as yet unclassified' }
-CMNorm >> penalty [
-
-	^ penaltyBlock
-]
-
-{ #category : 'as yet unclassified' }
-CMNorm >> penalty: aFullBlockClosure [
-
-	penaltyBlock := aFullBlockClosure
 ]

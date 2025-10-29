@@ -30,7 +30,7 @@ CMNormInstrumenter >> initialize [
 	methodProxies := Dictionary new
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'api' }
 CMNormInstrumenter >> instrumentMethods: anArrayOfCompiledMethods [
 
 	anArrayOfCompiledMethods do: [ :aMethod |
@@ -48,7 +48,7 @@ CMNormInstrumenter >> norm: aCMNorm [
 	norm := aCMNorm
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'api' }
 CMNormInstrumenter >> uninstrument [
 
 	methodProxies do: #uninstall.
