@@ -1,55 +1,61 @@
 Class {
-	#name : 'CMNorm',
+	#name : 'CMRule',
 	#superclass : 'Object',
 	#instVars : [
 		'conditionBlock',
 		'instrumenter',
-		'methodsToInstrument',
-		'actionBlock'
+		'actionBlock',
+		'methodToInstrument'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
 }
 
 { #category : 'accessing' }
-CMNorm >> actionBlock [
+CMRule >> actionBlock [
 
 	^ actionBlock
 ]
 
 { #category : 'api' }
-CMNorm >> activate [
+CMRule >> activate [
 
-	instrumenter instrumentMethods: methodsToInstrument
+	instrumenter instrumentMethods: methodToInstrument
 ]
 
 { #category : 'accessing' }
-CMNorm >> conditionBlock [
+CMRule >> conditionBlock [
 
 	^ conditionBlock
 ]
 
 { #category : 'accessing' }
-CMNorm >> conditionBlock: aFullBlockClosure [
+CMRule >> conditionBlock: aFullBlockClosure [
 
 	conditionBlock := aFullBlockClosure
 ]
 
 { #category : 'api' }
-CMNorm >> deactivate [
+CMRule >> deactivate [
 
 	instrumenter uninstrument
 ]
 
 { #category : 'initialization' }
-CMNorm >> initialize [
+CMRule >> initialize [
 
 	super initialize.
 	instrumenter := CMNormInstrumenter onNorm: self
 ]
 
 { #category : 'accessing' }
-CMNorm >> methodToInstrument: aCollection [
+CMRule >> methodToInstrument [
 
-	methodsToInstrument := aCollection
+	^ methodToInstrument
+]
+
+{ #category : 'accessing' }
+CMRule >> methodToInstrument: aCollection [
+
+	methodToInstrument := aCollection
 ]
