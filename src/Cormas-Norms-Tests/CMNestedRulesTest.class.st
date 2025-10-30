@@ -19,6 +19,30 @@ CMNestedRulesTest >> tearDown [
 ]
 
 { #category : 'tests' }
+CMNestedRulesTest >> testContradictoryRules [
+
+	| person1 |
+	rule1 := CMPenaltyRule
+		if: [ :person | person canEatForbiddenFruit ]
+		whenExecuting: CMMockAgent >> #eat
+		penalty: [ :person | person payFine: 20 ].
+	rule2 := CMRewardRule
+		if: [ :person | person canEatForbiddenFruit ]
+		whenExecuting: CMMockAgent >> #eat
+		reward: [ :person | person increaseBalance: 30 ].
+
+	person1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
+
+	"Apply rules"
+	rulesApplier := CMRulesApplier rules: { rule1 . rule2 }.
+	rulesApplier applyRules.
+
+	person1 eat.
+
+	self assert: person1 balance equals: 110
+]
+
+{ #category : 'tests' }
 CMNestedRulesTest >> testNestedRules [
 
 	| person1 person2 person3 |
