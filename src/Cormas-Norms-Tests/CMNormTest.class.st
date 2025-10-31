@@ -24,8 +24,8 @@ CMNormTest >> testAgentForbidden [
 	| mockAgent |
 	penaltyRule := CMPenaltyRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		penalty: [ :agent | agent payFine: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :agent | agent payFine: 20 ].
 
 	mockAgent := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
 
@@ -42,8 +42,8 @@ CMNormTest >> testAgentForbiddenAndAllowed [
 	| mockAgent1 mockAgent2 |
 	penaltyRule := CMPenaltyRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		penalty: [ :agent | agent payFine: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :agent | agent payFine: 20 ].
 
 	mockAgent1 := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
 	mockAgent2 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
@@ -64,8 +64,8 @@ CMNormTest >> testAgentReward [
 	| mockAgent |
 	rewardRule := CMRewardRule
 		if: [ :agent | agent canEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		reward: [ :agent | agent increaseBalance: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :agent | agent increaseBalance: 20 ].
 
 	mockAgent := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 
@@ -83,12 +83,12 @@ CMNormTest >> testAgentRewardAndForbidden [
 	| mockAgent1 mockAgent2 |
 	rewardRule := CMRewardRule
 		if: [ :agent | agent canEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		reward: [ :agent | agent increaseBalance: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :agent | agent increaseBalance: 20 ].
 	penaltyRule := CMPenaltyRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		penalty: [ :agent | agent payFine: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :agent | agent payFine: 20 ].
 
 	mockAgent1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 	mockAgent2 := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
@@ -109,8 +109,8 @@ CMNormTest >> testAgentRewardAndNotRewarded [
 	| mockAgent1 mockAgent2 |
 	rewardRule := CMRewardRule
 		if: [ :agent | agent canEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		reward: [ :agent | agent increaseBalance: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :agent | agent increaseBalance: 20 ].
 
 	mockAgent1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 	mockAgent2 := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.

@@ -24,12 +24,12 @@ CMNestedRulesTest >> testContradictoryRules [
 	| person1 |
 	rule1 := CMPenaltyRule
 		if: [ :person | person canEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		penalty: [ :person | person payFine: 20 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :person | person payFine: 20 ].
 	rule2 := CMRewardRule
 		if: [ :person | person canEatForbiddenFruit ]
-		whenExecuting: CMMockAgent >> #eat
-		reward: [ :person | person increaseBalance: 30 ].
+		whenExecutingMethod: CMMockAgent >> #eat
+		action: [ :person | person increaseBalance: 30 ].
 
 	person1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 
@@ -48,12 +48,12 @@ CMNestedRulesTest >> testNestedRules [
 	| person1 person2 person3 |
 	rule1 := CMPenaltyRule
 		if: [ :person | person isPregnant ]
-		whenExecuting: CMMockPerson >> #drinkCoffee
-		penalty: [ :person | person killBaby ].
+		whenExecutingMethod: CMMockPerson >> #drinkCoffee
+		action: [ :person | person killBaby ].
 	rule2 := CMPenaltyRule
 		if: [ :person | person hasHeartDisease ]
-		whenExecuting: CMMockPerson >> #drinkCoffee
-		penalty: [ :person | person haveHeartAttack ].
+		whenExecutingMethod: CMMockPerson >> #drinkCoffee
+		action: [ :person | person haveHeartAttack ].
 
 	person1 := CMMockPerson new bePregnant; yourself.
 	person2 := CMMockPerson new beHeartSick; yourself.
