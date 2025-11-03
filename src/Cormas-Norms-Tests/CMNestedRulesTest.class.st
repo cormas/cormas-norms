@@ -1,22 +1,13 @@
 Class {
 	#name : 'CMNestedRulesTest',
-	#superclass : 'TestCase',
+	#superclass : 'CMAbstractRulesTest',
 	#instVars : [
 		'rule1',
-		'rule2',
-		'rulesApplier'
+		'rule2'
 	],
 	#category : 'Cormas-Norms-Tests',
 	#package : 'Cormas-Norms-Tests'
 }
-
-{ #category : 'running' }
-CMNestedRulesTest >> tearDown [
-
-	rulesApplier deactivateRules.
-
-	super tearDown
-]
 
 { #category : 'tests' }
 CMNestedRulesTest >> testContradictoryRules [

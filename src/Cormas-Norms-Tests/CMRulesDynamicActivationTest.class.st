@@ -1,20 +1,9 @@
 Class {
 	#name : 'CMRulesDynamicActivationTest',
-	#superclass : 'TestCase',
-	#instVars : [
-		'rulesApplier'
-	],
+	#superclass : 'CMAbstractRulesTest',
 	#category : 'Cormas-Norms-Tests',
 	#package : 'Cormas-Norms-Tests'
 }
-
-{ #category : 'running' }
-CMRulesDynamicActivationTest >> tearDown [
-
-	rulesApplier deactivateRules.
-
-	super tearDown
-]
 
 { #category : 'tests' }
 CMRulesDynamicActivationTest >> testDynamicallyApplyRules [

@@ -1,22 +1,13 @@
 Class {
 	#name : 'CMRulesTest',
-	#superclass : 'TestCase',
+	#superclass : 'CMAbstractRulesTest',
 	#instVars : [
 		'penaltyRule',
-		'rewardRule',
-		'rulesApplier'
+		'rewardRule'
 	],
 	#category : 'Cormas-Norms-Tests',
 	#package : 'Cormas-Norms-Tests'
 }
-
-{ #category : 'running' }
-CMRulesTest >> tearDown [
-
-	rulesApplier deactivateRules.
-
-	super tearDown
-]
 
 { #category : 'tests' }
 CMRulesTest >> testAgentForbidden [
