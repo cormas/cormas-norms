@@ -22,11 +22,11 @@ CMNestedRulesTest >> tearDown [
 CMNestedRulesTest >> testContradictoryRules [
 
 	| person1 |
-	rule1 := CMPenaltyRule
+	rule1 := CMRule
 		if: [ :person | person canEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :person | person payFine: 20 ].
-	rule2 := CMRewardRule
+	rule2 := CMRule
 		if: [ :person | person canEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :person | person increaseBalance: 30 ].
@@ -46,11 +46,11 @@ CMNestedRulesTest >> testContradictoryRules [
 CMNestedRulesTest >> testNestedRules [
 
 	| person1 person2 person3 |
-	rule1 := CMPenaltyRule
+	rule1 := CMRule
 		if: [ :person | person isPregnant ]
 		whenExecutingMethod: CMMockPerson >> #drinkCoffee
 		action: [ :person | person killBaby ].
-	rule2 := CMPenaltyRule
+	rule2 := CMRule
 		if: [ :person | person hasHeartDisease ]
 		whenExecutingMethod: CMMockPerson >> #drinkCoffee
 		action: [ :person | person haveHeartAttack ].

@@ -1,5 +1,5 @@
 Class {
-	#name : 'CMNormTest',
+	#name : 'CMRulesTest',
 	#superclass : 'TestCase',
 	#instVars : [
 		'penaltyRule',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : 'running' }
-CMNormTest >> tearDown [
+CMRulesTest >> tearDown [
 
 	rulesApplier deactivateRules.
 
@@ -19,10 +19,10 @@ CMNormTest >> tearDown [
 ]
 
 { #category : 'tests' }
-CMNormTest >> testAgentForbidden [
+CMRulesTest >> testAgentForbidden [
 
 	| mockAgent |
-	penaltyRule := CMPenaltyRule
+	penaltyRule := CMRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :agent | agent payFine: 20 ].
@@ -37,10 +37,10 @@ CMNormTest >> testAgentForbidden [
 ]
 
 { #category : 'tests' }
-CMNormTest >> testAgentForbiddenAndAllowed [
+CMRulesTest >> testAgentForbiddenAndAllowed [
 
 	| mockAgent1 mockAgent2 |
-	penaltyRule := CMPenaltyRule
+	penaltyRule := CMRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :agent | agent payFine: 20 ].
@@ -59,10 +59,10 @@ CMNormTest >> testAgentForbiddenAndAllowed [
 ]
 
 { #category : 'tests' }
-CMNormTest >> testAgentReward [
+CMRulesTest >> testAgentReward [
 
 	| mockAgent |
-	rewardRule := CMRewardRule
+	rewardRule := CMRule
 		if: [ :agent | agent canEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :agent | agent increaseBalance: 20 ].
@@ -78,14 +78,14 @@ CMNormTest >> testAgentReward [
 ]
 
 { #category : 'tests' }
-CMNormTest >> testAgentRewardAndForbidden [
+CMRulesTest >> testAgentRewardAndForbidden [
 
 	| mockAgent1 mockAgent2 |
-	rewardRule := CMRewardRule
+	rewardRule := CMRule
 		if: [ :agent | agent canEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :agent | agent increaseBalance: 20 ].
-	penaltyRule := CMPenaltyRule
+	penaltyRule := CMRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :agent | agent payFine: 20 ].
@@ -104,10 +104,10 @@ CMNormTest >> testAgentRewardAndForbidden [
 ]
 
 { #category : 'tests' }
-CMNormTest >> testAgentRewardAndNotRewarded [
+CMRulesTest >> testAgentRewardAndNotRewarded [
 
 	| mockAgent1 mockAgent2 |
-	rewardRule := CMRewardRule
+	rewardRule := CMRule
 		if: [ :agent | agent canEatForbiddenFruit ]
 		whenExecutingMethod: CMMockAgent >> #eat
 		action: [ :agent | agent increaseBalance: 20 ].

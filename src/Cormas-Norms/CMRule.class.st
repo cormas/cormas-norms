@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'conditionBlock',
 		'actionBlock',
-		'methodToInstrument'
+		'methodToInstrument',
+		'isActive'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
@@ -46,6 +47,12 @@ CMRule >> actionBlock: aBlockClosure [
 	actionBlock := aBlockClosure
 ]
 
+{ #category : 'api' }
+CMRule >> activate [
+
+	isActive := true
+]
+
 { #category : 'accessing' }
 CMRule >> conditionBlock [
 
@@ -56,6 +63,25 @@ CMRule >> conditionBlock [
 CMRule >> conditionBlock: aFullBlockClosure [
 
 	conditionBlock := aFullBlockClosure
+]
+
+{ #category : 'api' }
+CMRule >> deactivate [
+
+	isActive := false
+]
+
+{ #category : 'initialization' }
+CMRule >> initialize [
+
+	super initialize.
+	isActive := true
+]
+
+{ #category : 'api' }
+CMRule >> isActive [
+
+	^ isActive
 ]
 
 { #category : 'accessing' }

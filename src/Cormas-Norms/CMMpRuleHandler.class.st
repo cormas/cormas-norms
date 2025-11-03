@@ -20,8 +20,8 @@ CMMpRuleHandler class >> onRules: aCollectionOfCMRules [
 CMMpRuleHandler >> afterExecutionWithReceiver: receiver arguments: arguments returnValue: returnValue [
 
 	rules do: [ :aCMRule |
-		(aCMRule conditionBlock value: receiver) ifTrue: [
-			aCMRule actionBlock value: receiver ] ].
+			((aCMRule conditionBlock value: receiver) and: [ aCMRule isActive ])
+				ifTrue: [ aCMRule actionBlock value: receiver ] ].
 
 	^ returnValue
 ]
