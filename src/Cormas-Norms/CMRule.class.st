@@ -25,14 +25,22 @@ CMRule class >> if: aConditionBlock whenExecutingMethod: compiledMethod action: 
 CMRule class >> if: aConditionBlock whenExecutingSelector: aSelector inClass: aClass action: anActionBlock [
 
 	| compiledMethod |
-	compiledMethod := aClass lookupSelector: aSelector.
-	compiledMethod ifNil: [ 
-		self error: 'The method ', aSelector , ' does not exist in class ', aClass name  ].
+	compiledMethod := self methodFor: aSelector in: aClass.
 
 	^ self
 		if: aConditionBlock
 		whenExecutingMethod: compiledMethod
 		action: anActionBlock
+]
+
+{ #category : 'instance creation' }
+CMRule class >> methodFor: aSelector in: aClass [
+
+	| compiledMethod |
+	compiledMethod := aClass lookupSelector: aSelector.
+	compiledMethod ifNil: [
+		self error: 'The method ' , aSelector , ' does not exist in class ' , aClass name ].
+	^ compiledMethod
 ]
 
 { #category : 'accessing' }
@@ -82,6 +90,12 @@ CMRule >> initialize [
 CMRule >> isActive [
 
 	^ isActive
+]
+
+{ #category : 'defaults' }
+CMRule >> methodFor: aSelector in: aClass [
+
+	^ self class methodFor: aSelector in: aClass
 ]
 
 { #category : 'accessing' }

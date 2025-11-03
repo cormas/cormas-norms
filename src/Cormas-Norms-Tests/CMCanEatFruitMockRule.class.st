@@ -11,6 +11,6 @@ CMCanEatFruitMockRule >> initialize [
 	super initialize.
 
 	conditionBlock := [ :agent | agent canEatForbiddenFruit ].
-	methodToInstrument := CMMockRulesAgent >> #eat.
+	methodToInstrument := self methodFor: #eat in: CMMockRulesAgent.
 	actionBlock := [ :agent | agent increaseBalance: 20 ]
 ]
