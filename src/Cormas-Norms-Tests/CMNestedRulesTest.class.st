@@ -24,14 +24,14 @@ CMNestedRulesTest >> testContradictoryRules [
 	| person1 |
 	rule1 := CMRule
 		if: [ :person | person canEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :person | person payFine: 20 ].
 	rule2 := CMRule
 		if: [ :person | person canEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :person | person increaseBalance: 30 ].
 
-	person1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
+	person1 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 
 	"Apply rules"
 	rulesApplier := CMRulesApplier rules: { rule1 . rule2 }.
@@ -48,16 +48,16 @@ CMNestedRulesTest >> testNestedRules [
 	| person1 person2 person3 |
 	rule1 := CMRule
 		if: [ :person | person isPregnant ]
-		whenExecutingMethod: CMMockPerson >> #drinkCoffee
+		whenExecutingMethod: CMMockRulesPerson >> #drinkCoffee
 		action: [ :person | person killBaby ].
 	rule2 := CMRule
 		if: [ :person | person hasHeartDisease ]
-		whenExecutingMethod: CMMockPerson >> #drinkCoffee
+		whenExecutingMethod: CMMockRulesPerson >> #drinkCoffee
 		action: [ :person | person haveHeartAttack ].
 
-	person1 := CMMockPerson new bePregnant; yourself.
-	person2 := CMMockPerson new beHeartSick; yourself.
-	person3 := CMMockPerson new.
+	person1 := CMMockRulesPerson new bePregnant; yourself.
+	person2 := CMMockRulesPerson new beHeartSick; yourself.
+	person3 := CMMockRulesPerson new.
 
 	"Apply rules"
 	rulesApplier := CMRulesApplier rules: { rule1 . rule2 }.

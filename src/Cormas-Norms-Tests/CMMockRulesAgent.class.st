@@ -1,5 +1,5 @@
 Class {
-	#name : 'CMMockAgent',
+	#name : 'CMMockRulesAgent',
 	#superclass : 'Object',
 	#instVars : [
 		'balance',
@@ -10,56 +10,56 @@ Class {
 }
 
 { #category : 'accessing' }
-CMMockAgent >> balance [
+CMMockRulesAgent >> balance [
 
 	^ balance
 ]
 
 { #category : 'accessing' }
-CMMockAgent >> balance: aNumber [
+CMMockRulesAgent >> balance: aNumber [
 
 	balance := aNumber
 ]
 
 { #category : 'accessing' }
-CMMockAgent >> canEatForbiddenFruit [
+CMMockRulesAgent >> canEatForbiddenFruit [
 
 	^ canEatForbiddenFruit
 ]
 
 { #category : 'accessing' }
-CMMockAgent >> canEatForbiddenFruit: aBoolean [
+CMMockRulesAgent >> canEatForbiddenFruit: aBoolean [
 
 	canEatForbiddenFruit := aBoolean
 ]
 
 { #category : 'accessing' }
-CMMockAgent >> cannotEatForbiddenFruit [
+CMMockRulesAgent >> cannotEatForbiddenFruit [
 
 	^ canEatForbiddenFruit not
 ]
 
 { #category : 'api' }
-CMMockAgent >> eat [
+CMMockRulesAgent >> eat [
 
 	
 ]
 
 { #category : 'api' }
-CMMockAgent >> increaseBalance: amount [
+CMMockRulesAgent >> increaseBalance: amount [
 
 	balance := balance + amount
 ]
 
 { #category : 'initialization' }
-CMMockAgent >> initialize [
+CMMockRulesAgent >> initialize [
 
 	super initialize.
 	canEatForbiddenFruit := false
 ]
 
 { #category : 'api' }
-CMMockAgent >> payFine: aNumber [
+CMMockRulesAgent >> payFine: aNumber [
 
 	balance := balance - aNumber
 ]

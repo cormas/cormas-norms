@@ -24,10 +24,10 @@ CMRulesTest >> testAgentForbidden [
 	| mockAgent |
 	penaltyRule := CMRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :agent | agent payFine: 20 ].
 
-	mockAgent := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
+	mockAgent := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: false; yourself.
 
 	rulesApplier := CMRulesApplier rules: { penaltyRule }.
 	rulesApplier applyRules.
@@ -42,11 +42,11 @@ CMRulesTest >> testAgentForbiddenAndAllowed [
 	| mockAgent1 mockAgent2 |
 	penaltyRule := CMRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :agent | agent payFine: 20 ].
 
-	mockAgent1 := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
-	mockAgent2 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
+	mockAgent1 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: false; yourself.
+	mockAgent2 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 
 	rulesApplier := CMRulesApplier rules: { penaltyRule }.
 	rulesApplier applyRules.
@@ -64,10 +64,10 @@ CMRulesTest >> testAgentReward [
 	| mockAgent |
 	rewardRule := CMRule
 		if: [ :agent | agent canEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :agent | agent increaseBalance: 20 ].
 
-	mockAgent := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
+	mockAgent := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: true; yourself.
 
 	rulesApplier := CMRulesApplier rules: { rewardRule }.
 	rulesApplier applyRules.
@@ -83,15 +83,15 @@ CMRulesTest >> testAgentRewardAndForbidden [
 	| mockAgent1 mockAgent2 |
 	rewardRule := CMRule
 		if: [ :agent | agent canEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :agent | agent increaseBalance: 20 ].
 	penaltyRule := CMRule
 		if: [ :agent | agent cannotEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :agent | agent payFine: 20 ].
 
-	mockAgent1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
-	mockAgent2 := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
+	mockAgent1 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: true; yourself.
+	mockAgent2 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: false; yourself.
 
 	rulesApplier := CMRulesApplier rules: { penaltyRule . rewardRule }.
 	rulesApplier applyRules.
@@ -109,11 +109,11 @@ CMRulesTest >> testAgentRewardAndNotRewarded [
 	| mockAgent1 mockAgent2 |
 	rewardRule := CMRule
 		if: [ :agent | agent canEatForbiddenFruit ]
-		whenExecutingMethod: CMMockAgent >> #eat
+		whenExecutingMethod: CMMockRulesAgent >> #eat
 		action: [ :agent | agent increaseBalance: 20 ].
 
-	mockAgent1 := CMMockAgent new balance: 100; canEatForbiddenFruit: true; yourself.
-	mockAgent2 := CMMockAgent new balance: 100; canEatForbiddenFruit: false; yourself.
+	mockAgent1 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: true; yourself.
+	mockAgent2 := CMMockRulesAgent new balance: 100; canEatForbiddenFruit: false; yourself.
 
 	rulesApplier := CMRulesApplier rules: { rewardRule }.
 	rulesApplier applyRules.
