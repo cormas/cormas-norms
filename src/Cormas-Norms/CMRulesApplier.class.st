@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'rules',
 		'methodProxies',
-		'areRulesActive'
+		'areRulesActive',
+		'areRulesApplied'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
@@ -29,6 +30,7 @@ CMRulesApplier >> activateRules [
 CMRulesApplier >> applyRules [
 
 	| rulesByMethodToInstrument |
+	methodProxies := Dictionary new.
 	rulesByMethodToInstrument := rules groupedBy: [ :rule | rule methodToInstrument ].
 	rulesByMethodToInstrument keysAndValuesDo: [ :compiledMethod :cmRules |
 		methodProxies
@@ -38,13 +40,19 @@ CMRulesApplier >> applyRules [
 	methodProxies do: #install.
 	MpMethodProxy enableInstrumentation.
 	
-	self activateRules
+	areRulesApplied := true
 ]
 
 { #category : 'api' }
 CMRulesApplier >> areRulesActive [
 
 	^ areRulesActive
+]
+
+{ #category : 'api' }
+CMRulesApplier >> areRulesApplied [
+
+	^ areRulesApplied
 ]
 
 { #category : 'api' }
@@ -58,7 +66,10 @@ CMRulesApplier >> deactivateRules [
 CMRulesApplier >> initialize [
 
 	super initialize.
-	methodProxies := Dictionary new
+	areRulesActive := false.
+	methodProxies := Dictionary new.
+	rules := {  }.
+	areRulesApplied := false
 ]
 
 { #category : 'accessing' }
@@ -73,5 +84,5 @@ CMRulesApplier >> unapplyRules [
 	methodProxies do: #uninstall.
 	MpMethodProxy disableInstrumentation.
 
-	self deactivateRules
+	areRulesApplied := false
 ]
