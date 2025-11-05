@@ -17,7 +17,7 @@ CMAbstractRulesTest class >> isAbstract [
 { #category : 'running' }
 CMAbstractRulesTest >> tearDown [
 
-	rulesApplier deactivateRules.
+	rulesApplier unapplyRules.
 
 	super tearDown
 ]

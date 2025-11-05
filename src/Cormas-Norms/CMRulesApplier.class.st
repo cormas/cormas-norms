@@ -3,7 +3,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'rules',
-		'methodProxies'
+		'methodProxies',
+		'areRulesActive'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
@@ -18,6 +19,13 @@ CMRulesApplier class >> rules: aSetOfRules [
 ]
 
 { #category : 'api' }
+CMRulesApplier >> activateRules [
+
+	rules do: #activate.
+	areRulesActive := true
+]
+
+{ #category : 'api' }
 CMRulesApplier >> applyRules [
 
 	| rulesByMethodToInstrument |
@@ -28,14 +36,22 @@ CMRulesApplier >> applyRules [
 			put: (MpMethodProxy onMethod: compiledMethod handler: (CMMpRuleHandler onRules: cmRules)) ].
 
 	methodProxies do: #install.
-	MpMethodProxy enableInstrumentation
+	MpMethodProxy enableInstrumentation.
+	
+	self activateRules
+]
+
+{ #category : 'api' }
+CMRulesApplier >> areRulesActive [
+
+	^ areRulesActive
 ]
 
 { #category : 'api' }
 CMRulesApplier >> deactivateRules [
 
-	methodProxies do: #uninstall.
-	MpMethodProxy disableInstrumentation
+	rules do: #deactivate.
+	areRulesActive := false
 ]
 
 { #category : 'initialization' }
@@ -49,4 +65,13 @@ CMRulesApplier >> initialize [
 CMRulesApplier >> rules: cmRules [
 
 	rules := cmRules
+]
+
+{ #category : 'api' }
+CMRulesApplier >> unapplyRules [
+
+	methodProxies do: #uninstall.
+	MpMethodProxy disableInstrumentation.
+
+	self deactivateRules
 ]

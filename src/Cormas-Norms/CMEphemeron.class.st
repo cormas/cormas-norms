@@ -9,8 +9,9 @@ Class {
 { #category : 'finalization' }
 CMEphemeron >> mourn [
 
-	key ifNil: [ ^ self ].
-	key deactivateRules.
 	'deactivateRules' traceCr.
+
+	key ifNil: [ ^ self ].
+	key unapplyRules.
 	key := nil
 ]

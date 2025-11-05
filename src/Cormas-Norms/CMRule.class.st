@@ -83,7 +83,7 @@ CMRule >> deactivate [
 CMRule >> initialize [
 
 	super initialize.
-	isActive := true
+	isActive := false
 ]
 
 { #category : 'api' }
