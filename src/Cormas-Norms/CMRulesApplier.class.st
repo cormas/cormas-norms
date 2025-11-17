@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'rules',
 		'methodProxies',
-		'areRulesActive',
 		'areRulesApplied'
 	],
 	#category : 'Cormas-Norms',
@@ -22,8 +21,7 @@ CMRulesApplier class >> rules: aSetOfRules [
 { #category : 'api' }
 CMRulesApplier >> activateRules [
 
-	rules do: #activate.
-	areRulesActive := true
+	rules do: #activate
 ]
 
 { #category : 'api' }
@@ -46,7 +44,7 @@ CMRulesApplier >> applyRules [
 { #category : 'api' }
 CMRulesApplier >> areRulesActive [
 
-	^ areRulesActive
+	^ self error: 'Should not be used'
 ]
 
 { #category : 'api' }
@@ -58,18 +56,21 @@ CMRulesApplier >> areRulesApplied [
 { #category : 'api' }
 CMRulesApplier >> deactivateRules [
 
-	rules do: #deactivate.
-	areRulesActive := false
+	rules do: #deactivate
 ]
 
 { #category : 'initialization' }
 CMRulesApplier >> initialize [
 
 	super initialize.
-	areRulesActive := false.
 	methodProxies := Dictionary new.
 	rules := {  }.
 	areRulesApplied := false
+]
+
+{ #category : 'accessing' }
+CMRulesApplier >> rules [
+	^ rules
 ]
 
 { #category : 'accessing' }

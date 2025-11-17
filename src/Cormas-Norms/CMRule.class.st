@@ -5,7 +5,8 @@ Class {
 		'conditionBlock',
 		'actionBlock',
 		'methodToInstrument',
-		'isActive'
+		'isActive',
+		'name'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
@@ -83,7 +84,8 @@ CMRule >> deactivate [
 CMRule >> initialize [
 
 	super initialize.
-	isActive := false
+	isActive := false.
+	name := self class name
 ]
 
 { #category : 'api' }
@@ -108,4 +110,16 @@ CMRule >> methodToInstrument [
 CMRule >> methodToInstrument: aCollection [
 
 	methodToInstrument := aCollection
+]
+
+{ #category : 'accessing' }
+CMRule >> name [
+
+	^ name
+]
+
+{ #category : 'accessing' }
+CMRule >> name: aString [
+
+	name := aString
 ]
