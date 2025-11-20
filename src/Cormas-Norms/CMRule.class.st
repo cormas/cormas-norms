@@ -84,7 +84,7 @@ CMRule >> deactivate [
 CMRule >> initialize [
 
 	super initialize.
-	isActive := false.
+	isActive := true.
 	name := self class name
 ]
 

@@ -27,17 +27,9 @@ CMRulesApplier >> activateRules [
 { #category : 'api' }
 CMRulesApplier >> applyRules [
 
-	| rulesByMethodToInstrument |
-	methodProxies := Dictionary new.
-	rulesByMethodToInstrument := rules groupedBy: [ :rule | rule methodToInstrument ].
-	rulesByMethodToInstrument keysAndValuesDo: [ :compiledMethod :cmRules |
-		methodProxies
-			at: compiledMethod
-			put: (MpMethodProxy onMethod: compiledMethod handler: (CMMpRuleHandler onRules: cmRules)) ].
-
 	methodProxies do: #install.
 	MpMethodProxy enableInstrumentation.
-	
+
 	areRulesApplied := true
 ]
 
@@ -50,6 +42,8 @@ CMRulesApplier >> areRulesActive [
 { #category : 'api' }
 CMRulesApplier >> areRulesApplied [
 
+	self flag:
+		'Think of a better way of knowing if the rules are applied. '.
 	^ areRulesApplied
 ]
 
@@ -74,9 +68,17 @@ CMRulesApplier >> rules [
 ]
 
 { #category : 'accessing' }
-CMRulesApplier >> rules: cmRules [
+CMRulesApplier >> rules: aCollection [
 
-	rules := cmRules
+	| rulesByMethodToInstrument |
+	rules := aCollection.
+	
+	rulesByMethodToInstrument := rules groupedBy: [ :rule | rule methodToInstrument ].
+	rulesByMethodToInstrument keysAndValuesDo: [ :compiledMethod :cmRules |
+		methodProxies
+			at: compiledMethod
+			put: (MpMethodProxy onMethod: compiledMethod handler: (CMMpRuleHandler onRules: cmRules)) ].
+
 ]
 
 { #category : 'api' }
