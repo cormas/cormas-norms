@@ -13,6 +13,7 @@ BaselineOfCormasNorms >> baseline: spec [
 		"Packages"
 		spec
 			package: 'Cormas-Norms';
+			package: 'Cormas-UI' with: [ spec requires: #( 'Cormas-Norms' ) ];
 			package: 'Cormas-Norms-Tests' with: [ spec requires: #( 'Cormas-Norms' ) ].
 
 		"External dependencies"
@@ -21,6 +22,6 @@ BaselineOfCormasNorms >> baseline: spec [
 
 		"Groups"
 		spec group: 'default' with: #( 'core' 'tests' ).
-		spec group: 'core' with: #( 'Cormas-Norms' ).
+		spec group: 'core' with: #( 'Cormas-Norms' 'Cormas-UI' ).
 		spec group: 'tests' with: #( 'Cormas-Norms-Tests' ) ]
 ]
