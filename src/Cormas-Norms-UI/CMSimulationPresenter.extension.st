@@ -1,15 +1,13 @@
 Extension { #name : 'CMSimulationPresenter' }
 
 { #category : '*Cormas-Norms-UI' }
-CMSimulationPresenter >> settingsPresenter [
+CMSimulationPresenter >> settingsNorms [
 
 	<fancyNotebookPageOrder: 30>
 			
 	| rulesApplier |
 	rulesApplier := CMRulesApplier new
-		rules: { 
-			CMCanEatFruitMockRule new.
-			CMCannotEatFruitMockRule new };
+		rules: modelClass new modelRules;
 		yourself.
 	
 	^ SpNotebookPage

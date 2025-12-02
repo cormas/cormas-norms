@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'rulesApplier',
 		'rulesListPresenter',
-		'inspectButton',
-		'applyButton'
+		'inspectButtonPresenter',
+		'applyButtonPresenter'
 	],
 	#category : 'Cormas-Norms-UI',
 	#package : 'Cormas-Norms-UI'
@@ -13,7 +13,8 @@ Class {
 
 { #category : 'examples' }
 CMNormsPresenter class >> examplePresenter [
-	
+	"self examplePresenter"
+
 	| rulesApplier presenter |
 		
 	rulesApplier := CMRulesApplier new
@@ -37,8 +38,9 @@ CMNormsPresenter class >> new [
 { #category : 'initialization' }
 CMNormsPresenter >> connectPresenters [
 
-	inspectButton action: [ rulesApplier inspect ].
-	self updateApplyButton
+	inspectButtonPresenter action: [ rulesApplier inspect ].
+	self refreshApplyButton.
+	self populateRulesUI
 ]
 
 { #category : 'layout' }
@@ -52,9 +54,9 @@ CMNormsPresenter >> defaultLayout [
 				   add: rulesListPresenter;
 				   yourself);
 		  add: (SpBoxLayout newTopToBottom
-				   add: inspectButton expand: false;
 				   add: SpNullPresenter new expand: true;
-				   add: applyButton expand: false;
+				   add: inspectButtonPresenter expand: false;
+				   add: applyButtonPresenter expand: false;
 				   yourself);
 		  yourself
 ]
@@ -69,6 +71,17 @@ CMNormsPresenter >> example [
 { #category : 'initialization' }
 CMNormsPresenter >> initializePresenters [
 
+	self initializeRulesListPresenter.
+	inspectButtonPresenter := self newButton
+		label: 'Inspect norms';
+		icon: (self iconNamed: #smallInspectIt);
+		yourself.
+	applyButtonPresenter := self newButton
+]
+
+{ #category : 'initialization' }
+CMNormsPresenter >> initializeRulesListPresenter [
+
 	| checkboxColumn |
 	
 	checkboxColumn := (SpCheckBoxTableColumn evaluated: #isActive)
@@ -80,15 +93,40 @@ CMNormsPresenter >> initializePresenters [
 		hideColumnHeaders;
 		addColumn: checkboxColumn;
 		addColumn: (SpStringTableColumn evaluated: #name);
-		items: rulesApplier rules;
-		yourself.
+		yourself
+]
 
-	inspectButton := self newButton
-		label: 'Inspect norms';
-		icon: (self iconNamed: #smallInspectIt);
-		yourself.
+{ #category : 'initialization' }
+CMNormsPresenter >> populateRulesUI [
 
-	applyButton := self newButton
+	rulesApplier rules
+		ifEmpty: [
+			rulesListPresenter := self newText
+				text: 'No Norms for this model.';
+				beNotEditable;
+				yourself.
+			applyButtonPresenter disable.
+			inspectButtonPresenter disable ]
+		ifNotEmpty: [ rulesListPresenter items: rulesApplier rules ]. 
+]
+
+{ #category : 'actions' }
+CMNormsPresenter >> refreshApplyButton [
+
+	rulesApplier areRulesApplied
+		ifTrue: [ self setUnapplyModeForApplyButton ]
+		ifFalse: [ self setApplyModeForApplyButton ]
+]
+
+{ #category : 'actions' }
+CMNormsPresenter >> setApplyModeForApplyButton [
+
+	applyButtonPresenter
+		label: 'Apply norms';
+		icon: (self iconNamed: #accept);
+		action: [
+				rulesApplier applyRules.
+				self refreshApplyButton ]
 ]
 
 { #category : 'accessing - model' }
@@ -97,32 +135,13 @@ CMNormsPresenter >> setModelBeforeInitialization: aRulesApplier [
 	rulesApplier := aRulesApplier
 ]
 
-{ #category : 'initialization' }
-CMNormsPresenter >> updateApplyButton [
+{ #category : 'actions' }
+CMNormsPresenter >> setUnapplyModeForApplyButton [
 
-	rulesApplier areRulesApplied
-		ifTrue: [ self updateApplyButtonForUnapply ]
-		ifFalse: [ self updateApplyButtonForApply ]
-]
-
-{ #category : 'initialization' }
-CMNormsPresenter >> updateApplyButtonForApply [
-
-	applyButton
-		label: 'Apply norms';
-		icon: (self iconNamed: #accept);
-		action: [
-				rulesApplier applyRules.
-				self updateApplyButton ]
-]
-
-{ #category : 'initialization' }
-CMNormsPresenter >> updateApplyButtonForUnapply [
-
-	applyButton
+	applyButtonPresenter
 		label: 'Unapply norms';
 		icon: (self iconNamed: #cancel);
 		action: [
 				rulesApplier unapplyRules.
-				self updateApplyButton ]
+				self refreshApplyButton ]
 ]
