@@ -4,58 +4,66 @@ Class {
 	#instVars : [
 		'rulesApplier',
 		'rulesListPresenter',
-		'inspectButton'
+		'inspectButton',
+		'applyButton'
 	],
 	#category : 'Cormas-Norms-UI',
 	#package : 'Cormas-Norms-UI'
 }
 
 { #category : 'examples' }
-CMNormsPresenter class >> example [
-
-	self examplePresenter open
-]
-
-{ #category : 'examples' }
 CMNormsPresenter class >> examplePresenter [
 	
-	| rulesApplier |
+	| rulesApplier presenter |
 		
-	rulesApplier := CMRulesApplier new.
+	rulesApplier := CMRulesApplier new
+		rules: { 
+			CMCanEatFruitMockRule new .
+			CMCannotEatFruitMockRule new };
+		yourself.
 	
-	rulesApplier rules: { 
-		CMCanEatFruitMockRule new .
-		CMCannotEatFruitMockRule new }.
-	
-	^ self on: rulesApplier
+	presenter := self on: rulesApplier.
+	presenter open.
+	^ presenter
 ]
 
 { #category : 'instance creation' }
 CMNormsPresenter class >> new [
 
-	^ self error:
+	self error:
 		  'Do not use new. You need to pass the rulesApplier as a model. Use the method on: instead'
 ]
 
 { #category : 'initialization' }
 CMNormsPresenter >> connectPresenters [
 
-	rulesListPresenter items: rulesApplier rules.
 	inspectButton action: [ rulesApplier inspect ].
+	self updateApplyButton
 ]
 
 { #category : 'layout' }
 CMNormsPresenter >> defaultLayout [
 
-	^ SpBoxLayout newTopToBottom
-		add: rulesListPresenter;
-		add: inspectButton expand: false;
-		yourself
+	^ SpPanedLayout newTopToBottom
+		  positionOfSlider: 30 percent;
+		  add: (SpBoxLayout newTopToBottom
+				   spacing: 5;
+				   add: 'Model norms' expand: false;
+				   add: rulesListPresenter;
+				   yourself);
+		  add: (SpBoxLayout newTopToBottom
+				   add: inspectButton expand: false;
+				   add: SpNullPresenter new expand: true;
+				   add: applyButton expand: false;
+				   yourself);
+		  yourself
 ]
 
-{ #category : 'examples' }
+{ #category : 'layout' }
 CMNormsPresenter >> example [
-	<script: 'self example'>
+
+	<script: 'self examplePresenter'>
+	
 ]
 
 { #category : 'initialization' }
@@ -68,21 +76,53 @@ CMNormsPresenter >> initializePresenters [
 		onDeactivation: #deactivate;
 		beNotExpandable;
 		yourself.
-
 	rulesListPresenter := self newTable
 		hideColumnHeaders;
 		addColumn: checkboxColumn;
 		addColumn: (SpStringTableColumn evaluated: #name);
+		items: rulesApplier rules;
 		yourself.
-		
+
 	inspectButton := self newButton
-		label: 'Inspect it';
+		label: 'Inspect norms';
 		icon: (self iconNamed: #smallInspectIt);
-		yourself
+		yourself.
+
+	applyButton := self newButton
 ]
 
 { #category : 'accessing - model' }
 CMNormsPresenter >> setModelBeforeInitialization: aRulesApplier [
 
 	rulesApplier := aRulesApplier
+]
+
+{ #category : 'initialization' }
+CMNormsPresenter >> updateApplyButton [
+
+	rulesApplier areRulesApplied
+		ifTrue: [ self updateApplyButtonForUnapply ]
+		ifFalse: [ self updateApplyButtonForApply ]
+]
+
+{ #category : 'initialization' }
+CMNormsPresenter >> updateApplyButtonForApply [
+
+	applyButton
+		label: 'Apply norms';
+		icon: (self iconNamed: #accept);
+		action: [
+				rulesApplier applyRules.
+				self updateApplyButton ]
+]
+
+{ #category : 'initialization' }
+CMNormsPresenter >> updateApplyButtonForUnapply [
+
+	applyButton
+		label: 'Unapply norms';
+		icon: (self iconNamed: #cancel);
+		action: [
+				rulesApplier unapplyRules.
+				self updateApplyButton ]
 ]
