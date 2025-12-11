@@ -8,7 +8,7 @@ CMSimulationPresenter >> settingsNorms [
 	| normsApplier |
 	normsApplier := CMNormsApplier onNorms: modelClass new modelNorms.
 
-	whenWindowsIsClosedHooks add: [ normsApplier unapplyNorms ].
+	whenWindowIsClosedHooks add: [ normsApplier unapplyNorms ].
 
 	^ SpNotebookPage
 		  title: 'Model Norms'
