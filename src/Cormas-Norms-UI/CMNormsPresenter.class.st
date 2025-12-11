@@ -2,10 +2,10 @@ Class {
 	#name : 'CMNormsPresenter',
 	#superclass : 'SpPresenter',
 	#instVars : [
-		'rulesApplier',
-		'rulesListPresenter',
 		'inspectButtonPresenter',
-		'applyButtonPresenter'
+		'applyButtonPresenter',
+		'normsListPresenter',
+		'normsApplier'
 	],
 	#category : 'Cormas-Norms-UI',
 	#package : 'Cormas-Norms-UI'
@@ -38,26 +38,22 @@ CMNormsPresenter class >> new [
 { #category : 'initialization' }
 CMNormsPresenter >> connectPresenters [
 
-	inspectButtonPresenter action: [ rulesApplier inspect ].
+	inspectButtonPresenter action: [ normsApplier inspect ].
 	self refreshApplyButton.
-	self populateRulesUI
+	self populateNormsUI
 ]
 
 { #category : 'layout' }
 CMNormsPresenter >> defaultLayout [
 
-	^ SpPanedLayout newTopToBottom
-		  positionOfSlider: 30 percent;
+	^ SpBoxLayout newTopToBottom
 		  add: (SpBoxLayout newTopToBottom
 				   spacing: 5;
 				   add: 'Model norms' expand: false;
-				   add: rulesListPresenter;
+				   add: normsListPresenter;
 				   yourself);
-		  add: (SpBoxLayout newTopToBottom
-				   add: SpNullPresenter new expand: true;
-				   add: inspectButtonPresenter expand: false;
-				   add: applyButtonPresenter expand: false;
-				   yourself);
+		  add: inspectButtonPresenter expand: false;
+		  add: applyButtonPresenter expand: false;
 		  yourself
 ]
 
@@ -89,7 +85,7 @@ CMNormsPresenter >> initializeRulesListPresenter [
 		onDeactivation: #deactivate;
 		beNotExpandable;
 		yourself.
-	rulesListPresenter := self newTable
+	normsListPresenter := self newTable
 		hideColumnHeaders;
 		addColumn: checkboxColumn;
 		addColumn: (SpStringTableColumn evaluated: #name);
@@ -97,23 +93,23 @@ CMNormsPresenter >> initializeRulesListPresenter [
 ]
 
 { #category : 'initialization' }
-CMNormsPresenter >> populateRulesUI [
+CMNormsPresenter >> populateNormsUI [
 
-	rulesApplier rules
+	normsApplier norms
 		ifEmpty: [
-			rulesListPresenter := self newText
+			normsListPresenter := self newText
 				text: 'No Norms for this model.';
 				beNotEditable;
 				yourself.
 			applyButtonPresenter disable.
 			inspectButtonPresenter disable ]
-		ifNotEmpty: [ rulesListPresenter items: rulesApplier rules ]. 
+		ifNotEmpty: [ normsListPresenter items: normsApplier norms ]. 
 ]
 
 { #category : 'actions' }
 CMNormsPresenter >> refreshApplyButton [
 
-	rulesApplier areNormsApplied
+	normsApplier areNormsApplied
 		ifTrue: [ self setUnapplyModeForApplyButton ]
 		ifFalse: [ self setApplyModeForApplyButton ]
 ]
@@ -125,14 +121,14 @@ CMNormsPresenter >> setApplyModeForApplyButton [
 		label: 'Apply norms';
 		icon: (self iconNamed: #accept);
 		action: [
-				rulesApplier applyNorms.
+				normsApplier applyNorms.
 				self refreshApplyButton ]
 ]
 
 { #category : 'accessing - model' }
-CMNormsPresenter >> setModelBeforeInitialization: aRulesApplier [
+CMNormsPresenter >> setModelBeforeInitialization: aNormsApplier [
 
-	rulesApplier := aRulesApplier
+	normsApplier := aNormsApplier
 ]
 
 { #category : 'actions' }
@@ -142,6 +138,6 @@ CMNormsPresenter >> setUnapplyModeForApplyButton [
 		label: 'Unapply norms';
 		icon: (self iconNamed: #cancel);
 		action: [
-				rulesApplier unapplyNorms.
+				normsApplier unapplyNorms.
 				self refreshApplyButton ]
 ]
