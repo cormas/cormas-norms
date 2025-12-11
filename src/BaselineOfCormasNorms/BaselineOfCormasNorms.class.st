@@ -13,8 +13,9 @@ BaselineOfCormasNorms >> baseline: spec [
 		"Packages"
 		spec
 			package: 'Cormas-Norms';
-			package: 'Cormas-Norms-UI' with: [ spec requires: #( 'Cormas-Norms' ) ];
-			package: 'Cormas-Norms-Tests' with: [ spec requires: #( 'Cormas-Norms' ) ].
+			package: 'Cormas-Norms-Examples' with: [ spec requires: #( 'Cormas-Norms' ) ];
+			package: 'Cormas-Norms-UI' with: [ spec requires: #( 'Cormas-Norms' 'Cormas-Norms-Examples' ) ];
+			package: 'Cormas-Norms-Tests' with: [ spec requires: #( 'Cormas-Norms' 'Cormas-Norms-Examples' ) ].
 
 		"External dependencies"
 		spec baseline: 'MethodProxies' with: [ spec repository: 'github://pharo-contributions/MethodProxies' ].
@@ -22,6 +23,6 @@ BaselineOfCormasNorms >> baseline: spec [
 
 		"Groups"
 		spec group: 'default' with: #( 'core' 'tests' ).
-		spec group: 'core' with: #( 'Cormas-Norms' 'Cormas-Norms-UI' ).
+		spec group: 'core' with: #( 'Cormas-Norms' 'Cormas-Norms-UI' 'Cormas-Norms-Examples' ).
 		spec group: 'tests' with: #( 'Cormas-Norms-Tests' ) ]
 ]

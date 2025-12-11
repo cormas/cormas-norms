@@ -9,18 +9,16 @@ Class {
 CMNormsAreUsedAsClassesTest >> testRulesAsClasses [
 
 	| mockAgent1 mockAgent2 |
-	mockAgent1 := CMMockNormsAgent new
+	mockAgent1 := CMMockAgent new
 		              balance: 100;
 		              canEatForbiddenFruit: true;
 		              yourself.
-	mockAgent2 := CMMockNormsAgent new
+	mockAgent2 := CMMockAgent new
 		              balance: 100;
 		              canEatForbiddenFruit: false;
 		              yourself.
 
-	rulesApplier := CMNormsApplier onNorms: {
-			                CMCannotEatFruitMockNorm new.
-			                CMCanEatFruitMockNorm new }.
+	rulesApplier := CMNormsApplier onNorms: { rewardRule . penaltyRule }.
 	rulesApplier applyNorms.
 
 	mockAgent1 eat.

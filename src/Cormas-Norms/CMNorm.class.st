@@ -2,79 +2,40 @@ Class {
 	#name : 'CMNorm',
 	#superclass : 'Object',
 	#instVars : [
-		'conditionBlock',
-		'actionBlock',
-		'methodToInstrument',
-		'isActive',
-		'name'
+		'isActive'
 	],
 	#category : 'Cormas-Norms',
 	#package : 'Cormas-Norms'
 }
 
-{ #category : 'instance creation' }
-CMNorm class >> if: aConditionBlock whenExecutingMethod: compiledMethod action: anActionBlock [
+{ #category : 'api - rules' }
+CMNorm >> action [
+	"Return the method that should be observed. This is the action of the cormas model"
 
-	^ self new
-		  conditionBlock: aConditionBlock;
-		  methodToInstrument: compiledMethod;
-		  actionBlock: anActionBlock;
-		  yourself
+	^ self subclassResponsibility
 ]
 
-{ #category : 'instance creation' }
-CMNorm class >> if: aConditionBlock whenExecutingSelector: aSelector inClass: aClass action: anActionBlock [
-
-	| compiledMethod |
-	compiledMethod := self methodFor: aSelector in: aClass.
-
-	^ self
-		if: aConditionBlock
-		whenExecutingMethod: compiledMethod
-		action: anActionBlock
-]
-
-{ #category : 'instance creation' }
-CMNorm class >> methodFor: aSelector in: aClass [
-
-	| compiledMethod |
-	compiledMethod := aClass lookupSelector: aSelector.
-	compiledMethod ifNil: [
-		self error: 'The method ' , aSelector , ' does not exist in class ' , aClass name ].
-	^ compiledMethod
-]
-
-{ #category : 'accessing' }
-CMNorm >> actionBlock [
-
-	^ actionBlock
-]
-
-{ #category : 'accessing' }
-CMNorm >> actionBlock: aBlockClosure [
-
-	actionBlock := aBlockClosure
-]
-
-{ #category : 'api' }
+{ #category : 'api - activation' }
 CMNorm >> activate [
 
 	isActive := true
 ]
 
-{ #category : 'accessing' }
-CMNorm >> conditionBlock [
+{ #category : 'api - rules' }
+CMNorm >> condition: agent [
+	"This is the condition that determines if the rule should be applied or not. This method should return a boolean."
 
-	^ conditionBlock
+	^ self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
-CMNorm >> conditionBlock: aFullBlockClosure [
+{ #category : 'api - rules' }
+CMNorm >> consequence: agent [
+	"Return the method that is executed if the rule is broken"
 
-	conditionBlock := aFullBlockClosure
+	^ self subclassResponsibility
 ]
 
-{ #category : 'api' }
+{ #category : 'api - activation' }
 CMNorm >> deactivate [
 
 	isActive := false
@@ -84,11 +45,10 @@ CMNorm >> deactivate [
 CMNorm >> initialize [
 
 	super initialize.
-	isActive := true.
-	name := self class name
+	isActive := true
 ]
 
-{ #category : 'api' }
+{ #category : 'api - activation' }
 CMNorm >> isActive [
 
 	^ isActive
@@ -97,29 +57,22 @@ CMNorm >> isActive [
 { #category : 'defaults' }
 CMNorm >> methodFor: aSelector in: aClass [
 
-	^ self class methodFor: aSelector in: aClass
+	| compiledMethod |
+	compiledMethod := aClass lookupSelector: aSelector.
+	compiledMethod ifNil: [
+		self error: 'The method ' , aSelector , ' does not exist in class ' , aClass name ].
+	^ compiledMethod
 ]
 
 { #category : 'accessing' }
 CMNorm >> methodToInstrument [
 
-	^ methodToInstrument
-]
-
-{ #category : 'accessing' }
-CMNorm >> methodToInstrument: aCollection [
-
-	methodToInstrument := aCollection
+	^ self action
 ]
 
 { #category : 'accessing' }
 CMNorm >> name [
+	"The default rule name is the class name. Override it to have a custom name"
 
-	^ name
-]
-
-{ #category : 'accessing' }
-CMNorm >> name: aString [
-
-	name := aString
+	^ self class name
 ]

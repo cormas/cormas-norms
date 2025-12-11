@@ -1,10 +1,6 @@
 Class {
 	#name : 'CMNestedNormsTest',
 	#superclass : 'CMAbstractNormsTest',
-	#instVars : [
-		'rule1',
-		'rule2'
-	],
 	#category : 'Cormas-Norms-Tests',
 	#package : 'Cormas-Norms-Tests'
 }
@@ -13,56 +9,36 @@ Class {
 CMNestedNormsTest >> testContradictoryRules [
 
 	| person1 |
-	rule1 := CMNorm
-		         if: [ :person | person canEatForbiddenFruit ]
-		         whenExecutingMethod: CMMockNormsAgent >> #eat
-		         action: [ :person | person payFine: 20 ].
-	rule2 := CMNorm
-		         if: [ :person | person canEatForbiddenFruit ]
-		         whenExecutingMethod: CMMockNormsAgent >> #eat
-		         action: [ :person | person increaseBalance: 30 ].
 
-	person1 := CMMockNormsAgent new
+	person1 := CMMockAgent new
 		           balance: 100;
 		           canEatForbiddenFruit: true;
 		           yourself.
 
 	"Apply rules"
-	rulesApplier := CMNormsApplier onNorms: {
-			                rule1.
-			                rule2 }.
+	rulesApplier := CMNormsApplier onNorms: { rewardRule . CMExampleNormCanEatFruitContradictory new. }.
 	rulesApplier applyNorms.
 
 	person1 eat.
 
-	self assert: person1 balance equals: 110
+	self assert: person1 balance equals: 90
 ]
 
 { #category : 'tests' }
 CMNestedNormsTest >> testNestedRules [
 
 	| person1 person2 person3 |
-	rule1 := CMNorm
-		         if: [ :person | person isPregnant ]
-		         whenExecutingMethod: CMMockNormsPerson >> #drinkCoffee
-		         action: [ :person | person killBaby ].
-	rule2 := CMNorm
-		         if: [ :person | person hasHeartDisease ]
-		         whenExecutingMethod: CMMockNormsPerson >> #drinkCoffee
-		         action: [ :person | person haveHeartAttack ].
-
-	person1 := CMMockNormsPerson new
+	person1 := CMMockPerson new
 		           bePregnant;
 		           yourself.
-	person2 := CMMockNormsPerson new
+	person2 := CMMockPerson new
 		           beHeartSick;
 		           yourself.
-	person3 := CMMockNormsPerson new.
+	person3 := CMMockPerson new.
 
 	"Apply rules"
 	rulesApplier := CMNormsApplier onNorms: {
-			                rule1.
-			                rule2 }.
+			CMExampleNormCannotDrinkCoffePregnant new. CMExampleNormCannotDrinkCoffeHeartAttack new }.
 	rulesApplier applyNorms.
 
 	{

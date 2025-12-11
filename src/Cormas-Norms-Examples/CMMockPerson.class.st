@@ -1,5 +1,5 @@
 Class {
-	#name : 'CMMockNormsPerson',
+	#name : 'CMMockPerson',
 	#superclass : 'Object',
 	#instVars : [
 		'isPregnant',
@@ -7,55 +7,56 @@ Class {
 		'hasHadHeartAttack',
 		'hasBabyBeenKilled'
 	],
-	#category : 'Cormas-Norms-Tests',
-	#package : 'Cormas-Norms-Tests'
+	#category : 'Cormas-Norms-Examples-Agents',
+	#package : 'Cormas-Norms-Examples',
+	#tag : 'Agents'
 }
 
 { #category : 'api' }
-CMMockNormsPerson >> beHeartSick [
+CMMockPerson >> beHeartSick [
 
 	hasHeartDisease := true
 ]
 
 { #category : 'api' }
-CMMockNormsPerson >> bePregnant [
+CMMockPerson >> bePregnant [
 
 	isPregnant := true.
 	hasBabyBeenKilled := true
 ]
 
 { #category : 'api' }
-CMMockNormsPerson >> drinkCoffee [
+CMMockPerson >> drinkCoffee [
 
 	
 ]
 
 { #category : 'accessing' }
-CMMockNormsPerson >> hasBabyBeenKilled [
+CMMockPerson >> hasBabyBeenKilled [
 
 	^ hasBabyBeenKilled
 ]
 
 { #category : 'accessing' }
-CMMockNormsPerson >> hasHadHeartAttack [
+CMMockPerson >> hasHadHeartAttack [
 
 	^ hasHadHeartAttack
 ]
 
 { #category : 'accessing' }
-CMMockNormsPerson >> hasHeartDisease [
+CMMockPerson >> hasHeartDisease [
 
 	^ hasHeartDisease
 ]
 
 { #category : 'api' }
-CMMockNormsPerson >> haveHeartAttack [
+CMMockPerson >> haveHeartAttack [
 
 	hasHadHeartAttack := true
 ]
 
 { #category : 'initialization' }
-CMMockNormsPerson >> initialize [
+CMMockPerson >> initialize [
 
 	super initialize.
 	isPregnant := false.
@@ -66,13 +67,13 @@ CMMockNormsPerson >> initialize [
 ]
 
 { #category : 'accessing' }
-CMMockNormsPerson >> isPregnant [
+CMMockPerson >> isPregnant [
 
 	^ isPregnant
 ]
 
 { #category : 'api' }
-CMMockNormsPerson >> killBaby [
+CMMockPerson >> killBaby [
 
 	hasBabyBeenKilled := true
 ]

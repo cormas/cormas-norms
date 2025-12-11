@@ -2,7 +2,9 @@ Class {
 	#name : 'CMAbstractNormsTest',
 	#superclass : 'TestCase',
 	#instVars : [
-		'rulesApplier'
+		'rulesApplier',
+		'rewardRule',
+		'penaltyRule'
 	],
 	#category : 'Cormas-Norms-Tests',
 	#package : 'Cormas-Norms-Tests'
@@ -12,6 +14,14 @@ Class {
 CMAbstractNormsTest class >> isAbstract [
 
 	^ self = CMAbstractNormsTest
+]
+
+{ #category : 'running' }
+CMAbstractNormsTest >> setUp [
+
+	super setUp.
+	rewardRule := CMExampleNormCanEatFruit new.
+	penaltyRule := CMExampleNormCannotEatFruit new
 ]
 
 { #category : 'running' }

@@ -1,65 +1,66 @@
 Class {
-	#name : 'CMMockNormsAgent',
+	#name : 'CMMockAgent',
 	#superclass : 'Object',
 	#instVars : [
 		'balance',
 		'canEatForbiddenFruit'
 	],
-	#category : 'Cormas-Norms-Tests',
-	#package : 'Cormas-Norms-Tests'
+	#category : 'Cormas-Norms-Examples-Agents',
+	#package : 'Cormas-Norms-Examples',
+	#tag : 'Agents'
 }
 
 { #category : 'accessing' }
-CMMockNormsAgent >> balance [
+CMMockAgent >> balance [
 
 	^ balance
 ]
 
 { #category : 'accessing' }
-CMMockNormsAgent >> balance: aNumber [
+CMMockAgent >> balance: aNumber [
 
 	balance := aNumber
 ]
 
 { #category : 'accessing' }
-CMMockNormsAgent >> canEatForbiddenFruit [
+CMMockAgent >> canEatForbiddenFruit [
 
 	^ canEatForbiddenFruit
 ]
 
 { #category : 'accessing' }
-CMMockNormsAgent >> canEatForbiddenFruit: aBoolean [
+CMMockAgent >> canEatForbiddenFruit: aBoolean [
 
 	canEatForbiddenFruit := aBoolean
 ]
 
 { #category : 'accessing' }
-CMMockNormsAgent >> cannotEatForbiddenFruit [
+CMMockAgent >> cannotEatForbiddenFruit [
 
 	^ canEatForbiddenFruit not
 ]
 
 { #category : 'api' }
-CMMockNormsAgent >> eat [
+CMMockAgent >> eat [
 
 	
 ]
 
 { #category : 'api' }
-CMMockNormsAgent >> increaseBalance: amount [
+CMMockAgent >> increaseBalance: amount [
 
 	balance := balance + amount
 ]
 
 { #category : 'initialization' }
-CMMockNormsAgent >> initialize [
+CMMockAgent >> initialize [
 
 	super initialize.
 	canEatForbiddenFruit := false
 ]
 
 { #category : 'api' }
-CMMockNormsAgent >> payFine: aNumber [
+CMMockAgent >> payFine: aNumber [
 
 	balance := balance - aNumber
 ]

@@ -20,8 +20,8 @@ CMMpNormHandler class >> onNorms: aCollectionOfCMRules [
 CMMpNormHandler >> afterExecutionWithReceiver: receiver arguments: arguments returnValue: returnValue [
 
 	norms do: [ :aCMNorm |
-			((aCMNorm conditionBlock value: receiver) and: [ aCMNorm isActive ])
-				ifTrue: [ aCMNorm actionBlock value: receiver ] ].
+			((aCMNorm condition: receiver) and: [ aCMNorm isActive ])
+				ifTrue: [ aCMNorm consequence: receiver ] ].
 
 	^ returnValue
 ]

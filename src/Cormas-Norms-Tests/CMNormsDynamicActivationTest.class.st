@@ -8,21 +8,12 @@ Class {
 { #category : 'tests' }
 CMNormsDynamicActivationTest >> testDynamicallyApplyRules [
 
-	| allowedAgent forbiddenAgent rewardRule penaltyRule |
-	rewardRule := CMNorm
-		              if: [ :agent | agent canEatForbiddenFruit ]
-		              whenExecutingMethod: CMMockNormsAgent >> #eat
-		              action: [ :agent | agent increaseBalance: 20 ].
-	penaltyRule := CMNorm
-		               if: [ :agent | agent cannotEatForbiddenFruit ]
-		               whenExecutingMethod: CMMockNormsAgent >> #eat
-		               action: [ :agent | agent payFine: 20 ].
-
-	allowedAgent := CMMockNormsAgent new
+	| allowedAgent forbiddenAgent |
+	allowedAgent := CMMockAgent new
 		                balance: 100;
 		                canEatForbiddenFruit: true;
 		                yourself.
-	forbiddenAgent := CMMockNormsAgent new
+	forbiddenAgent := CMMockAgent new
 		                  balance: 100;
 		                  canEatForbiddenFruit: false;
 		                  yourself.
