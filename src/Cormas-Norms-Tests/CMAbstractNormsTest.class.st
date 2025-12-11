@@ -1,5 +1,5 @@
 Class {
-	#name : 'CMAbstractRulesTest',
+	#name : 'CMAbstractNormsTest',
 	#superclass : 'TestCase',
 	#instVars : [
 		'rulesApplier'
@@ -9,15 +9,15 @@ Class {
 }
 
 { #category : 'testing' }
-CMAbstractRulesTest class >> isAbstract [
+CMAbstractNormsTest class >> isAbstract [
 
-	^ self = CMAbstractRulesTest
+	^ self = CMAbstractNormsTest
 ]
 
 { #category : 'running' }
-CMAbstractRulesTest >> tearDown [
+CMAbstractNormsTest >> tearDown [
 
-	rulesApplier unapplyRules.
+	rulesApplier unapplyNorms.
 
 	super tearDown
 ]

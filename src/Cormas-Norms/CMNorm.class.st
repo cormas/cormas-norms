@@ -1,5 +1,5 @@
 Class {
-	#name : 'CMRule',
+	#name : 'CMNorm',
 	#superclass : 'Object',
 	#instVars : [
 		'conditionBlock',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : 'instance creation' }
-CMRule class >> if: aConditionBlock whenExecutingMethod: compiledMethod action: anActionBlock [
+CMNorm class >> if: aConditionBlock whenExecutingMethod: compiledMethod action: anActionBlock [
 
 	^ self new
 		  conditionBlock: aConditionBlock;
@@ -23,7 +23,7 @@ CMRule class >> if: aConditionBlock whenExecutingMethod: compiledMethod action: 
 ]
 
 { #category : 'instance creation' }
-CMRule class >> if: aConditionBlock whenExecutingSelector: aSelector inClass: aClass action: anActionBlock [
+CMNorm class >> if: aConditionBlock whenExecutingSelector: aSelector inClass: aClass action: anActionBlock [
 
 	| compiledMethod |
 	compiledMethod := self methodFor: aSelector in: aClass.
@@ -35,7 +35,7 @@ CMRule class >> if: aConditionBlock whenExecutingSelector: aSelector inClass: aC
 ]
 
 { #category : 'instance creation' }
-CMRule class >> methodFor: aSelector in: aClass [
+CMNorm class >> methodFor: aSelector in: aClass [
 
 	| compiledMethod |
 	compiledMethod := aClass lookupSelector: aSelector.
@@ -45,43 +45,43 @@ CMRule class >> methodFor: aSelector in: aClass [
 ]
 
 { #category : 'accessing' }
-CMRule >> actionBlock [
+CMNorm >> actionBlock [
 
 	^ actionBlock
 ]
 
 { #category : 'accessing' }
-CMRule >> actionBlock: aBlockClosure [
+CMNorm >> actionBlock: aBlockClosure [
 
 	actionBlock := aBlockClosure
 ]
 
 { #category : 'api' }
-CMRule >> activate [
+CMNorm >> activate [
 
 	isActive := true
 ]
 
 { #category : 'accessing' }
-CMRule >> conditionBlock [
+CMNorm >> conditionBlock [
 
 	^ conditionBlock
 ]
 
 { #category : 'accessing' }
-CMRule >> conditionBlock: aFullBlockClosure [
+CMNorm >> conditionBlock: aFullBlockClosure [
 
 	conditionBlock := aFullBlockClosure
 ]
 
 { #category : 'api' }
-CMRule >> deactivate [
+CMNorm >> deactivate [
 
 	isActive := false
 ]
 
 { #category : 'initialization' }
-CMRule >> initialize [
+CMNorm >> initialize [
 
 	super initialize.
 	isActive := true.
@@ -89,37 +89,37 @@ CMRule >> initialize [
 ]
 
 { #category : 'api' }
-CMRule >> isActive [
+CMNorm >> isActive [
 
 	^ isActive
 ]
 
 { #category : 'defaults' }
-CMRule >> methodFor: aSelector in: aClass [
+CMNorm >> methodFor: aSelector in: aClass [
 
 	^ self class methodFor: aSelector in: aClass
 ]
 
 { #category : 'accessing' }
-CMRule >> methodToInstrument [
+CMNorm >> methodToInstrument [
 
 	^ methodToInstrument
 ]
 
 { #category : 'accessing' }
-CMRule >> methodToInstrument: aCollection [
+CMNorm >> methodToInstrument: aCollection [
 
 	methodToInstrument := aCollection
 ]
 
 { #category : 'accessing' }
-CMRule >> name [
+CMNorm >> name [
 
 	^ name
 ]
 
 { #category : 'accessing' }
-CMRule >> name: aString [
+CMNorm >> name: aString [
 
 	name := aString
 ]

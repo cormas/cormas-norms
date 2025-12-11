@@ -1,5 +1,5 @@
 Class {
-	#name : 'CMMockRulesPerson',
+	#name : 'CMMockNormsPerson',
 	#superclass : 'Object',
 	#instVars : [
 		'isPregnant',
@@ -12,50 +12,50 @@ Class {
 }
 
 { #category : 'api' }
-CMMockRulesPerson >> beHeartSick [
+CMMockNormsPerson >> beHeartSick [
 
 	hasHeartDisease := true
 ]
 
 { #category : 'api' }
-CMMockRulesPerson >> bePregnant [
+CMMockNormsPerson >> bePregnant [
 
 	isPregnant := true.
 	hasBabyBeenKilled := true
 ]
 
 { #category : 'api' }
-CMMockRulesPerson >> drinkCoffee [
+CMMockNormsPerson >> drinkCoffee [
 
 	
 ]
 
 { #category : 'accessing' }
-CMMockRulesPerson >> hasBabyBeenKilled [
+CMMockNormsPerson >> hasBabyBeenKilled [
 
 	^ hasBabyBeenKilled
 ]
 
 { #category : 'accessing' }
-CMMockRulesPerson >> hasHadHeartAttack [
+CMMockNormsPerson >> hasHadHeartAttack [
 
 	^ hasHadHeartAttack
 ]
 
 { #category : 'accessing' }
-CMMockRulesPerson >> hasHeartDisease [
+CMMockNormsPerson >> hasHeartDisease [
 
 	^ hasHeartDisease
 ]
 
 { #category : 'api' }
-CMMockRulesPerson >> haveHeartAttack [
+CMMockNormsPerson >> haveHeartAttack [
 
 	hasHadHeartAttack := true
 ]
 
 { #category : 'initialization' }
-CMMockRulesPerson >> initialize [
+CMMockNormsPerson >> initialize [
 
 	super initialize.
 	isPregnant := false.
@@ -66,13 +66,13 @@ CMMockRulesPerson >> initialize [
 ]
 
 { #category : 'accessing' }
-CMMockRulesPerson >> isPregnant [
+CMMockNormsPerson >> isPregnant [
 
 	^ isPregnant
 ]
 
 { #category : 'api' }
-CMMockRulesPerson >> killBaby [
+CMMockNormsPerson >> killBaby [
 
 	hasBabyBeenKilled := true
 ]

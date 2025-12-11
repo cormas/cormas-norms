@@ -12,6 +12,6 @@ CMEphemeron >> mourn [
 	'deactivateRules' traceCr.
 
 	key ifNil: [ ^ self ].
-	key unapplyRules.
+	key unapplyNorms.
 	key := nil
 ]

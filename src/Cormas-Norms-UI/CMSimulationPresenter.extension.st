@@ -6,11 +6,9 @@ CMSimulationPresenter >> settingsNorms [
 	<fancyNotebookPageOrder: 30>
 
 	| rulesApplier |
-	rulesApplier := CMRulesApplier new
-		rules: modelClass new modelRules;
-		yourself.
+	rulesApplier := CMNormsApplier onNorms: modelClass new modelNorms.
 
-	whenWindowsIsClosedHooks add: [ rulesApplier unapplyRules ].
+	whenWindowsIsClosedHooks add: [ rulesApplier unapplyNorms ].
 
 	^ SpNotebookPage
 		  title: 'Model Norms'

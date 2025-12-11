@@ -17,10 +17,10 @@ CMNormsPresenter class >> examplePresenter [
 
 	| rulesApplier presenter |
 		
-	rulesApplier := CMRulesApplier new
-		rules: { 
-			CMCanEatFruitMockRule new .
-			CMCannotEatFruitMockRule new };
+	rulesApplier := CMNormsApplier new
+		norms: { 
+			CMCanEatFruitMockNorm new .
+			CMCannotEatFruitMockNorm new };
 		yourself.
 	
 	presenter := self on: rulesApplier.
@@ -113,7 +113,7 @@ CMNormsPresenter >> populateRulesUI [
 { #category : 'actions' }
 CMNormsPresenter >> refreshApplyButton [
 
-	rulesApplier areRulesApplied
+	rulesApplier areNormsApplied
 		ifTrue: [ self setUnapplyModeForApplyButton ]
 		ifFalse: [ self setApplyModeForApplyButton ]
 ]
@@ -125,7 +125,7 @@ CMNormsPresenter >> setApplyModeForApplyButton [
 		label: 'Apply norms';
 		icon: (self iconNamed: #accept);
 		action: [
-				rulesApplier applyRules.
+				rulesApplier applyNorms.
 				self refreshApplyButton ]
 ]
 
@@ -142,6 +142,6 @@ CMNormsPresenter >> setUnapplyModeForApplyButton [
 		label: 'Unapply norms';
 		icon: (self iconNamed: #cancel);
 		action: [
-				rulesApplier unapplyRules.
+				rulesApplier unapplyNorms.
 				self refreshApplyButton ]
 ]
