@@ -17,11 +17,9 @@ CMNormsPresenter class >> examplePresenter [
 
 	| rulesApplier presenter |
 		
-	rulesApplier := CMNormsApplier new
-		norms: { 
+	rulesApplier := CMNormsApplier onNorms: { 
 			CMCanEatFruitMockNorm new .
-			CMCannotEatFruitMockNorm new };
-		yourself.
+			CMCannotEatFruitMockNorm new }.
 	
 	presenter := self on: rulesApplier.
 	presenter open.
