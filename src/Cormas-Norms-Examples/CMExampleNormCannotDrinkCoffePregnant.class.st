@@ -23,3 +23,8 @@ CMExampleNormCannotDrinkCoffePregnant >> consequence: person [
 
 	^ person killBaby
 ]
+
+{ #category : 'api - rules' }
+CMExampleNormCannotDrinkCoffePregnant >> deontic [ 
+	^ #prohibition
+]
