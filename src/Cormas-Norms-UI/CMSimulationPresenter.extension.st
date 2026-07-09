@@ -6,7 +6,7 @@ CMSimulationPresenter >> settingsNorms [
 	<fancyNotebookPageOrder: 30>
 
 	| normsApplier normsInTheModel |
-	normsInTheModel := modelClass package definedClasses
+	normsInTheModel := self cormasModel class package definedClasses
 		select: [ :class | class inheritsFrom: CMNorm ]
 		thenCollect: [ :class | class new ].
 	normsInTheModel := normsInTheModel asOrderedCollection.
