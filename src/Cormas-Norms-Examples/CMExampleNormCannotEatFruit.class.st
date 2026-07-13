@@ -23,3 +23,8 @@ CMExampleNormCannotEatFruit >> consequence: agent [
 
 	^ agent payFine: 20
 ]
+
+{ #category : 'accessing' }
+CMExampleNormCannotEatFruit >> deontic [
+	^ #permission
+]

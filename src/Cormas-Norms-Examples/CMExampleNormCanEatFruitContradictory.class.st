@@ -23,3 +23,8 @@ CMExampleNormCanEatFruitContradictory >> consequence: person [
 
 	^ person payFine: 30
 ]
+
+{ #category : 'accessing' }
+CMExampleNormCanEatFruitContradictory >> deontic [ 
+	^ #permission
+]

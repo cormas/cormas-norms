@@ -23,3 +23,8 @@ CMExampleNormCannotDrinkCoffeHeartAttack >> consequence: person [
 
 	^ person haveHeartAttack
 ]
+
+{ #category : 'accessing' }
+CMExampleNormCannotDrinkCoffeHeartAttack >> deontic [ 
+	^ #prohibition
+]
