@@ -1,6 +1,6 @@
 Class {
 	#name : 'CMExampleNormCannotDrinkCoffeHeartAttack',
-	#superclass : 'CMNorm',
+	#superclass : 'CMProhibition',
 	#category : 'Cormas-Norms-Examples-Norms',
 	#package : 'Cormas-Norms-Examples',
 	#tag : 'Norms'
@@ -22,9 +22,4 @@ CMExampleNormCannotDrinkCoffeHeartAttack >> condition: person [
 CMExampleNormCannotDrinkCoffeHeartAttack >> consequence: person [
 
 	^ person haveHeartAttack
-]
-
-{ #category : 'accessing' }
-CMExampleNormCannotDrinkCoffeHeartAttack >> deontic [ 
-	^ #prohibition
 ]
