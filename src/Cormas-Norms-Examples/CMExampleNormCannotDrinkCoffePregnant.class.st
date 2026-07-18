@@ -1,6 +1,6 @@
 Class {
 	#name : 'CMExampleNormCannotDrinkCoffePregnant',
-	#superclass : 'CMNorm',
+	#superclass : 'CMProhibition',
 	#category : 'Cormas-Norms-Examples-Norms',
 	#package : 'Cormas-Norms-Examples',
 	#tag : 'Norms'
@@ -22,9 +22,4 @@ CMExampleNormCannotDrinkCoffePregnant >> condition: person [
 CMExampleNormCannotDrinkCoffePregnant >> consequence: person [
 
 	^ person killBaby
-]
-
-{ #category : 'api - rules' }
-CMExampleNormCannotDrinkCoffePregnant >> deontic [ 
-	^ #prohibition
 ]

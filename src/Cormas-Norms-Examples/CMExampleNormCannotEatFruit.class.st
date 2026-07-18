@@ -1,6 +1,6 @@
 Class {
 	#name : 'CMExampleNormCannotEatFruit',
-	#superclass : 'CMNorm',
+	#superclass : 'CMProhibition',
 	#category : 'Cormas-Norms-Examples-Norms',
 	#package : 'Cormas-Norms-Examples',
 	#tag : 'Norms'
@@ -22,9 +22,4 @@ CMExampleNormCannotEatFruit >> condition: agent [
 CMExampleNormCannotEatFruit >> consequence: agent [
 
 	^ agent payFine: 20
-]
-
-{ #category : 'accessing' }
-CMExampleNormCannotEatFruit >> deontic [
-	^ #permission
 ]

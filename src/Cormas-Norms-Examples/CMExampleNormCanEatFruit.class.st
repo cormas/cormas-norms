@@ -1,6 +1,6 @@
 Class {
 	#name : 'CMExampleNormCanEatFruit',
-	#superclass : 'CMNorm',
+	#superclass : 'CMPermission',
 	#category : 'Cormas-Norms-Examples-Norms',
 	#package : 'Cormas-Norms-Examples',
 	#tag : 'Norms'
