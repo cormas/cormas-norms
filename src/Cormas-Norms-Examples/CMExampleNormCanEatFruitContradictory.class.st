@@ -1,6 +1,6 @@
 Class {
 	#name : 'CMExampleNormCanEatFruitContradictory',
-	#superclass : 'CMNorm',
+	#superclass : 'CMPermission',
 	#category : 'Cormas-Norms-Examples-Norms',
 	#package : 'Cormas-Norms-Examples',
 	#tag : 'Norms'
@@ -22,9 +22,4 @@ CMExampleNormCanEatFruitContradictory >> condition: person [
 CMExampleNormCanEatFruitContradictory >> consequence: person [
 
 	^ person payFine: 30
-]
-
-{ #category : 'accessing' }
-CMExampleNormCanEatFruitContradictory >> deontic [ 
-	^ #permission
 ]

@@ -2,7 +2,6 @@ Class {
 	#name : 'CMNorm',
 	#superclass : 'Object',
 	#instVars : [
-		'deontic',
 		'isActive'
 	],
 	#category : 'Cormas-Norms',
@@ -40,18 +39,6 @@ CMNorm >> consequence: agent [
 CMNorm >> deactivate [
 
 	isActive := false
-]
-
-{ #category : 'accessing' }
-CMNorm >> deontic [
-	"A deontic operator describes the modality of the norm, which can be either an obligation, a prohibition, or a permission"
-	^ deontic
-]
-
-{ #category : 'accessing' }
-CMNorm >> deontic: aDeonticOperator [
-
-	deontic := aDeonticOperator 
 ]
 
 { #category : 'initialization' }
