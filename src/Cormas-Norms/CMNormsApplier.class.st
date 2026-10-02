@@ -27,9 +27,16 @@ CMNormsApplier >> activateNorms [
 { #category : 'api' }
 CMNormsApplier >> applyNorms [
 
+	| activeNormsByMethodToInstrument |
+	areNormsApplied ifTrue: [ self unapplyNorms ].
+	activeNormsByMethodToInstrument := (norms select: [:norm| norm isActive])
+		groupedBy: [ :norm | norm methodToInstrument ].
+	activeNormsByMethodToInstrument keysAndValuesDo: [ :compiledMethod :cmNorms | methodProxies 
+			at: compiledMethod 
+			put: (MpMethodProxy onMethod: compiledMethod handler: (CMMpNormHandler onNorms: cmNorms ))
+	].
 	methodProxies do: #install.
 	MpMethodProxy enableInstrumentation.
-
 	areNormsApplied := true
 ]
 
@@ -67,23 +74,21 @@ CMNormsApplier >> norms [
 
 { #category : 'accessing' }
 CMNormsApplier >> norms: aCollection [
-
-	| normsByMethodToInstrument |
-	norms := aCollection.
-	
-	normsByMethodToInstrument := norms groupedBy: [ :norm | norm methodToInstrument ].
-	normsByMethodToInstrument keysAndValuesDo: [ :compiledMethod :cmNorms |
-		methodProxies
-			at: compiledMethod
-			put: (MpMethodProxy onMethod: compiledMethod handler: (CMMpNormHandler onNorms: cmNorms)) ].
-
+	norms := aCollection
 ]
 
 { #category : 'api' }
 CMNormsApplier >> unapplyNorms [
 
 	methodProxies do: #uninstall.
+	methodProxies removeAll.
 	MpMethodProxy disableInstrumentation.
 
 	areNormsApplied := false
+]
+
+{ #category : 'api' }
+CMNormsApplier >> updateAppliedNorms [
+
+	areNormsApplied ifTrue: [ self applyNorms ]
 ]
